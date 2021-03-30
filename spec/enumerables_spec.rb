@@ -85,6 +85,18 @@ describe Enumerable do
   it "returns true if any word greater than 3 chracters " do
     expect(%w[felix shaher test code].my_any?{|el| el.length > 3}).to be(true)
   end
+  it 'retrns true if any of the hash values is an odd number' do
+    expect({k1:10, k2:9, k3:8, k4:7}.my_any?{|k,v| v%2 == 1}).to eq(true)
+  end
+  it 'retrns true if any of the hash values is greater than 12' do
+    expect({k1:10, k2:9, k3:8, k4:7}.my_any?{|k,v| v > 12}).to eq(false)
+  end
+  it "returns true if the a character exists in the string " do
+    expect(%w[felix shaher test code].my_any?(/a/)).to be(true)
+  end
+  it "returns false if the b character does not exist in the string " do
+    expect(%w[felix shaher test code].my_any?(/b/)).to be(false)
+  end
 end 
 end
 
