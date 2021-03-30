@@ -48,7 +48,20 @@ describe Enumerable do
       end.to output("shaher 0\nand 1\nfelix 2\ntests 3\n").to_stdout
     end
   end
+
+  describe '#my_select' do
+    it 'Returns my_select object if no block given' do
+      expect((1..3).my_select).to be_a(Enumerable)
+    end
+  
+    it 'Returns Array' do
+      expect((1..3).my_select { |el| el }).to be_a(Array)
+      expect({ key1: 10, key2: 20 }.my_select { |el| el }).to be_a(Array)
+    end
+  end
 end
+
+
 
 # it "Returns enumerable when no block given" do
 #   my_proc = Proc.new {|x,y| x}
