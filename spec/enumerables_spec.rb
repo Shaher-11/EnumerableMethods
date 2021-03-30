@@ -5,6 +5,7 @@ describe Enumerable do
       it "Returns enumerable when no block given" do
         expect((1..5).my_each).to be_a(Enumerable)
       end
+    
       
       it "Returns itself when block given" do
         expect((1..5).my_each {|e| e}).to eq((1..5))
@@ -12,3 +13,10 @@ describe Enumerable do
       end
     end
 end
+
+  # it "Returns enumerable when no block given" do
+      #   my_proc = Proc.new {|x,y| x}
+      #   [[1, 2], [3, 4]].each(&my_proc)
+        
+      #   expect([[1, 2], [3, 4]].my_each(&my_proc)).to be_a([1,2])
+      # end
