@@ -219,9 +219,17 @@ describe "#my_inject" do
     expect([1, 2, 3].my_inject(2, :*)).to eql(12)
   end
 
-  it "Returns sum of range" do
-   (5..10).inject { |sum, n| sum + n } 
+  it "Returns sum of numbers in a range" do
+   expect((5..10).my_inject{ |sum, n| sum + n }).to eql(45)
   end
 
+  it "Returns sum of numbers in a range" do
+    expect((5..10).my_inject(1){ |product, n| product * n }).to eql(151200)
+   end
+
+   it "Returns the longest word in a given block" do
+    expect(%w{ shaher felix none some }.my_inject{ |acm, word| acm.length > word.length ? acm : word }).to eql("shaher" )
+   end
 end
 end
+
