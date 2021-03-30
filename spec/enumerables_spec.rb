@@ -185,6 +185,15 @@ describe "#my_map" do
   it "returens the hash values conveted into symbols" do
     expect({ bacon: "protein", apple: "fruit" }.my_map{|k,v| [k, v.to_sym]}.to_h).to eql({:bacon=>:protein, :apple=>:fruit})
   end
+  it "returns the class of each element in the given array" do
+    expect(["orange", :apple, 2].my_map(&:class)).to eql([String, Symbol, Integer])
+  end
+  it "returns a new array of the given one converted to integrs" do
+    expect(%w[1 2 3 4 5].my_map(&:to_i)).to eql([1, 2, 3, 4, 5])
+  end
+  it 'Returns Enumerable if the given array is empty' do
+    expect([].my_map).to be_a(Enumerable)
+   end
 end 
 
 end
