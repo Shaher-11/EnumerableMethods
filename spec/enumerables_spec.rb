@@ -99,6 +99,18 @@ describe Enumerable do
   end
 end 
 
+describe "#my_none?" do
+  it "returns false if none of numbers is less than 20 in the given array" do
+  expect([11, 12, 14].my_none?{|el| el < 20}).to be(false)
+end
+it "returns true if none of numbers is greater than 20 in the given array" do
+  expect([11, 12, 14].my_none?{|el| el > 20}).to be(true)
+end
+it "returns true if none of words less than 3 chracters " do
+  expect(%w[felix shaher test code].my_none?{|el| el.length < 3}).to be(true)
+end
+end
+
 describe "#my_count" do
   it "counts the even numbers in a given array" do
     expect([11, 12, 14, 9, 8].my_count{|el| el.even?}).to be(3)
