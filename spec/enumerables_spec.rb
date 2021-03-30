@@ -196,4 +196,32 @@ describe "#my_map" do
    end
 end 
 
+describe "#my_inject" do
+  it "Returns local jump error if no block given" do
+    expect{(..4).my_inject}.to raise_error(LocalJumpError)
+  end
+
+  it "Returns acc when operation of range" do
+    expect((1..4).my_inject(:+)).to eql(10)
+  end
+
+  it "Returns multiple of array" do
+    expect([1, 2, 3].my_inject(:*)).to eql(6)
+  end
+  it "Returns integer after subtracting each element in array from previous" do
+    expect([1, 2, 3].my_inject(:-)).to eql(-4)
+  end
+  it "Returns integer after dividing each element in array by next" do
+    expect([12, 3, 2].my_inject(:/)).to eql(2)
+  end
+
+  it "Returns integer after multiplying each element in array by previous passing accumulator" do
+    expect([1, 2, 3].my_inject(2, :*)).to eql(12)
+  end
+
+  it "Returns sum of range" do
+   (5..10).inject { |sum, n| sum + n } 
+  end
+
+end
 end
