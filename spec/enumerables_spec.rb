@@ -1,6 +1,6 @@
 require_relative '../enumerables'
 
-# rubocop: disable Metrics/BlockLength, Layout/LineLength
+# rubocop: disable Layout/LineLength
 describe Enumerable do
   describe '#my_each' do
     it 'Returns enumerable when no block given' do
@@ -22,7 +22,7 @@ describe Enumerable do
     it 'prints the elements in the array with their indeces' do
       expect do
         [1, 2, 5].my_each_with_index do |el, idx|
-          puts el.to_s + ' ' + idx.to_s
+          puts "#{el} #{idx}"
         end
       end.to output("1 0\n2 1\n5 2\n").to_stdout
     end
@@ -30,7 +30,7 @@ describe Enumerable do
     it 'prints the elements in the range with their indeces' do
       expect do
         (1..5).my_each_with_index do |el, idx|
-          puts el.to_s + ' ' + idx.to_s
+          puts "#{el} #{idx}"
         end
       end.to output("1 0\n2 1\n3 2\n4 3\n5 4\n").to_stdout
     end
@@ -45,7 +45,7 @@ describe Enumerable do
     it 'should print the items in the array of strings with their indeces' do
       expect do
         %w[shaher and felix tests].my_each_with_index do |x, index|
-          puts x.to_s + ' ' + index.to_s
+          puts "#{x} #{index}"
         end
       end.to output("shaher 0\nand 1\nfelix 2\ntests 3\n").to_stdout
     end
@@ -150,6 +150,45 @@ describe Enumerable do
     end
   end
 
+  describe '#my_all?' do
+    it 'Returns true if self is empty' do
+      expect([].my_all?).to be(true)
+    end
+    it 'returns true if none of numbers is less than 20 in the given array' do
+      expect([11, 12, 14].my_all? { |el| el < 20 }).to be(true)
+    end
+    it 'returns false if none of numbers is greater than 20 in the given array' do
+      expect([11, 12, 14].my_all? { |el| el > 20 }).to be(false)
+    end
+    it 'returns true if none of words less than 3 chracters ' do
+      expect(%w[felix shaher test code].my_all? { |el| el.length > 3 }).to be(true)
+    end
+
+    it 'returns true if any word less than 3 chracters ' do
+      expect(%w[felix shaher test code].my_all?(String)).to be(true)
+    end
+    it 'returns false if any word less than 3 chracters ' do
+      expect([1, :shaher, nil].my_all?(String)).to be(false)
+    end
+
+    it 'returns false if none of words greater than 4 chracters ' do
+      expect(%w[felix shaher test code].my_all? { |el| el.length > 4 }).to be(false)
+    end
+    it 'retrns false if none of the hash values is an odd number' do
+      expect({ k1: 10, k2: 4, k3: 8, k4: 6 }.my_all? { |_k, v| v.odd? }).to eq(false)
+    end
+
+    it 'retrns true if none of the hash values is an odd number' do
+      expect({ k1: 10, k2: 4, k3: 8, k4: 6 }.my_all? { |_k, v| v.even? }).to eq(true)
+    end
+    it 'returns false if none of the words has the a characte ' do
+      expect(%w[felix shaher test code].my_all?(/a/)).to be(false)
+    end
+    it 'returns true if none of the words has the b characte ' do
+      expect(%w[felixb shaherb beloved testb codeb].my_all?(/b/)).to be(true)
+    end
+  end
+
   describe '#my_count' do
     it 'counts the even numbers in a given array' do
       expect([11, 12, 14, 9, 8].my_count(&:even?)).to be(3)
@@ -237,4 +276,4 @@ describe Enumerable do
     end
   end
 end
-# rubocop: enable Metrics/BlockLength, Layout/LineLength
+# rubocop: enable Layout/LineLength
