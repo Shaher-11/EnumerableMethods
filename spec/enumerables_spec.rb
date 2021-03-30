@@ -270,10 +270,13 @@ describe Enumerable do
     it 'Returns the longest word in a given block' do
       expect(%w[shaher felix none some].my_inject { |acm, word| acm.length > word.length ? acm : word }).to eql('shaher')
     end
-
-    it 'Returns result from multiply_els method' do
-      expect(multiply_els(1..3)).to eq(6)
-    end
   end
+  
+    describe '#multiply_else' do
+     it 'Returns result from multiply_els method' do
+      expect(multiply_els(1..3)).to eq(6)
+     end
+    end
+  
 end
 # rubocop: enable Layout/LineLength
