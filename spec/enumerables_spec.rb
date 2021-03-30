@@ -70,6 +70,22 @@ describe Enumerable do
       expect((1..3).my_select { |el| el }).to eq([1,2,3])
     end
   end
+
+  describe "#my_any?" do 
+
+    it "returns true if any number is greater than three in the given array" do
+    expect([11, 12, 14].my_any?{|el| el > 3}).to be(true)
+  end
+  it "returns false if any number is less than three in the given array" do
+    expect([11, 12, 14].my_any?{|el| el < 3}).to be(false)
+  end
+  it "returns false if any word less than 3 chracters " do
+    expect(%w[felix shaher test code].my_any?{|el| el.length < 3}).to be(false)
+  end
+  it "returns true if any word greater than 3 chracters " do
+    expect(%w[felix shaher test code].my_any?{|el| el.length > 3}).to be(true)
+  end
+end 
 end
 
 
