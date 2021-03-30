@@ -12,9 +12,16 @@ describe Enumerable do
     it 'Returns itself when block given' do
       expect([1, 2, 3].my_each { |e| e }).to eq([1, 2, 3])
     end
+    it 'Returns nothing  when no block given' do
+      expect([].my_each { |e| e }).to eq([])
+    end
 
     it 'Returns the items in arry of strings' do
       expect(%w[shaher and felix tests].my_each { |e| e }).to eq(%w[shaher and felix tests])
+    end
+
+    it 'Returns the items in arry of strings' do
+      expect([1, 2, 3].my_each { |e| e }).to eq([1, 2, 3])
     end
   end
 
@@ -38,6 +45,7 @@ describe Enumerable do
     it 'Returns enumerable when no block given' do
       expect((1..5).my_each_with_index).to be_a(Enumerable)
     end
+
     it 'Returns the hash aftr iteration' do
       expect({ key1: 10, key2: 'Felix' }.my_each_with_index { |e| e }).to eq({ key1: 10, key2: 'Felix' })
     end
@@ -78,11 +86,18 @@ describe Enumerable do
       expect([].my_none?).to be(true)
     end
 
+    it 'Returns false if self is not empty' do
+      expect([1, 2].my_none?).to be(false)
+    end
+
     it 'returns true if any number is greater than three in the given array' do
       expect([11, 12, 14].my_any? { |el| el > 3 }).to be(true)
     end
     it 'returns false if any number is less than three in the given array' do
       expect([11, 12, 14].my_any? { |el| el < 3 }).to be(false)
+    end
+    it 'returns true if any word less than 3 chracters ' do
+      expect(%w[felix shaher test code].my_any? { |el| el.length > 3 }).to be(true)
     end
     it 'returns false if any word less than 3 chracters ' do
       expect(%w[felix shaher test code].my_any? { |el| el.length < 3 }).to be(false)
@@ -97,6 +112,9 @@ describe Enumerable do
 
     it 'returns true if any word greater than 3 chracters ' do
       expect(%w[felix shaher test code].my_any? { |el| el.length > 3 }).to be(true)
+    end
+    it 'returns false if any word greater than 3 chracters ' do
+      expect(%w[felix shaher test code].my_any? { |el| el.length < 3 }).to be(false)
     end
     it 'retrns true if any of the hash values is an odd number' do
       expect({ k1: 10, k2: 9, k3: 8, k4: 7 }.my_any? { |_k, v| v.odd? }).to eq(true)
@@ -116,6 +134,9 @@ describe Enumerable do
     it 'Returns true if self is empty' do
       expect([].my_none?).to be(true)
     end
+    it 'Returns false if self is empty' do
+      expect([1, 2].my_none?).to be(false)
+    end
     it 'returns false if none of numbers is less than 20 in the given array' do
       expect([11, 12, 14].my_none? { |el| el < 20 }).to be(false)
     end
@@ -124,6 +145,10 @@ describe Enumerable do
     end
     it 'returns true if none of words less than 3 chracters ' do
       expect(%w[felix shaher test code].my_none? { |el| el.length < 3 }).to be(true)
+    end
+
+    it 'returns false if none of words less than 3 chracters ' do
+      expect(%w[felix shaher test code].my_none? { |el| el.length > 3 }).to be(false)
     end
 
     it 'returns false if any word less than 3 chracters ' do
@@ -135,6 +160,10 @@ describe Enumerable do
 
     it 'returns false if none of words greater than 4 chracters ' do
       expect(%w[felix shaher test code].my_none? { |el| el.length > 4 }).to be(false)
+    end
+
+    it 'returns true if none of words less than 4 chracters ' do
+      expect(%w[felix shaher test code].my_none? { |el| el.length < 4 }).to be(true)
     end
     it 'retrns true if none of the hash values is an odd number' do
       expect({ k1: 10, k2: 4, k3: 8, k4: 6 }.my_none? { |_k, v| v.odd? }).to eq(true)
@@ -154,6 +183,9 @@ describe Enumerable do
     it 'Returns true if self is empty' do
       expect([].my_all?).to be(true)
     end
+    it 'Returns false if self is not empty' do
+      expect([nil].my_all?).to be(false)
+    end
     it 'returns true if none of numbers is less than 20 in the given array' do
       expect([11, 12, 14].my_all? { |el| el < 20 }).to be(true)
     end
@@ -162,6 +194,9 @@ describe Enumerable do
     end
     it 'returns true if none of words less than 3 chracters ' do
       expect(%w[felix shaher test code].my_all? { |el| el.length > 3 }).to be(true)
+    end
+    it 'returns false if none of words less than 3 chracters ' do
+      expect(%w[felix shaher test code].my_all? { |el| el.length < 3 }).to be(false)
     end
 
     it 'returns true if any word less than 3 chracters ' do
@@ -173,6 +208,9 @@ describe Enumerable do
 
     it 'returns false if none of words greater than 4 chracters ' do
       expect(%w[felix shaher test code].my_all? { |el| el.length > 4 }).to be(false)
+    end
+    it 'returns true if nt none of words greater than 4 chracters ' do
+      expect(%w[fe sh tes cde].my_all? { |el| el.length < 4 }).to be(true)
     end
     it 'retrns false if none of the hash values is an odd number' do
       expect({ k1: 10, k2: 4, k3: 8, k4: 6 }.my_all? { |_k, v| v.odd? }).to eq(false)
@@ -271,12 +309,11 @@ describe Enumerable do
       expect(%w[shaher felix none some].my_inject { |acm, word| acm.length > word.length ? acm : word }).to eql('shaher')
     end
   end
-  
-    describe '#multiply_else' do
-     it 'Returns result from multiply_els method' do
+
+  describe '#multiply_else' do
+    it 'Returns result from multiply_els method' do
       expect(multiply_els(1..3)).to eq(6)
-     end
     end
-  
+  end
 end
 # rubocop: enable Layout/LineLength
