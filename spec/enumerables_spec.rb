@@ -72,9 +72,12 @@ describe Enumerable do
   end
 
   describe "#my_any?" do 
+    it 'Returns true if self is empty' do
+      expect([].my_none?).to be(true)
+     end
 
-    it "returns true if any number is greater than three in the given array" do
-    expect([11, 12, 14].my_any?{|el| el > 3}).to be(true)
+  it "returns true if any number is greater than three in the given array" do
+  expect([11, 12, 14].my_any?{|el| el > 3}).to be(true)
   end
   it "returns false if any number is less than three in the given array" do
     expect([11, 12, 14].my_any?{|el| el < 3}).to be(false)
@@ -82,6 +85,14 @@ describe Enumerable do
   it "returns false if any word less than 3 chracters " do
     expect(%w[felix shaher test code].my_any?{|el| el.length < 3}).to be(false)
   end
+
+  it "returns false if any word less than 3 chracters " do
+    expect(%w[felix shaher test code].my_any?(String)).to be(true)
+  end
+  it "returns false if any word less than 3 chracters " do
+    expect([1, :shaher, nil].my_any?(String)).to be(false)
+  end
+
   it "returns true if any word greater than 3 chracters " do
     expect(%w[felix shaher test code].my_any?{|el| el.length > 3}).to be(true)
   end
@@ -98,6 +109,44 @@ describe Enumerable do
     expect(%w[felix shaher test code].my_any?(/b/)).to be(false)
   end
 end 
+
+describe "#my_none?" do
+it 'Returns true if self is empty' do
+ expect([].my_none?).to be(true)
+end
+  it "returns false if none of numbers is less than 20 in the given array" do
+  expect([11, 12, 14].my_none?{|el| el < 20}).to be(false)
+end
+it "returns true if none of numbers is greater than 20 in the given array" do
+  expect([11, 12, 14].my_none?{|el| el > 20}).to be(true)
+end
+it "returns true if none of words less than 3 chracters " do
+  expect(%w[felix shaher test code].my_none?{|el| el.length < 3}).to be(true)
+end
+
+it "returns false if any word less than 3 chracters " do
+  expect(%w[felix shaher test code].my_none?(String)).to be(false)
+end
+it "returns false if any word less than 3 chracters " do
+  expect([1, :shaher, nil].my_none?(String)).to be(true)
+end
+
+it "returns false if none of words greater than 4 chracters " do
+  expect(%w[felix shaher test code].my_none?{|el| el.length > 4}).to be(false)
+end
+it 'retrns true if none of the hash values is an odd number' do
+  expect({k1:10, k2:4, k3:8, k4:6}.my_none?{|k,v| v%2 == 1}).to eq(true)
+end
+it 'retrns false if none of the hash values is an odd number' do
+  expect({k1:10, k2:4, k3:8, k4:6}.my_none?{|k,v| v%2 == 0}).to eq(false)
+end
+it "returns false if none of the words has the a characte " do
+  expect(%w[felix shaher test code].my_none?(/a/)).to be(false)
+end
+it "returns true if none of the words has the b characte " do
+  expect(%w[felix shaher test code].my_none?(/b/)).to be(true)
+end
+end
 
 describe "#my_count" do
   it "counts the even numbers in a given array" do
