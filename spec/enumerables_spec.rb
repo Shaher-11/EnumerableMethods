@@ -53,10 +53,21 @@ describe Enumerable do
     it 'Returns my_select object if no block given' do
       expect((1..3).my_select).to be_a(Enumerable)
     end
+
+    it 'Selects even numbers from array of numbers' do
+      expect([2,3,4,6,9].my_select{|el| el%2 == 0}).to eq([2,4,6])
+    end
+
+    it 'Selects even numbers from array of numbers' do
+      expect(%w[felix shaher test code].my_select{|el| el.length > 4}).to eq(%w[felix shaher])
+    end
   
-    it 'Returns Array' do
-      expect((1..3).my_select { |el| el }).to be_a(Array)
-      expect({ key1: 10, key2: 20 }.my_select { |el| el }).to be_a(Array)
+    it 'Selects even numbers from array of numbers' do
+      expect({k1:10, k2:9, k3:8, k4:7}.my_select{|k,v| v%2 == 1}).to eq([[:k2, 9], [:k4, 7]])
+    end
+  
+    it 'Returns an array out of given range' do
+      expect((1..3).my_select { |el| el }).to eq([1,2,3])
     end
   end
 end
