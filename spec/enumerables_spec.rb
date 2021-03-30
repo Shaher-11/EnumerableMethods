@@ -124,13 +124,18 @@ describe "#my_count" do
     expect([1, 2, 4, 3].my_count).to be(4)
   end
 end 
+
+describe "#my_map" do
+
+  it "returns  a ew array tarnsformed into upper case" do
+    expect(%w[shaher felix].my_map{|name| name.upcase}).to eql(["SHAHER", "FELIX"])
+  end
+  it "returns a new array with the number multiplied by 2" do
+    expect([2, 3, 4].my_map{|n| n * 2}).to eql([4, 6, 8])
+  end
+  it "returens the hash values conveted into symbols" do
+    expect({ bacon: "protein", apple: "fruit" }.my_map{|k,v| [k, v.to_sym]}.to_h).to eql({:bacon=>:protein, :apple=>:fruit})
+  end
+end 
+
 end
-
-
-
-# it "Returns enumerable when no block given" do
-#   my_proc = Proc.new {|x,y| x}
-#   [[1, 2], [3, 4]].each(&my_proc)
-
-#   expect([[1, 2], [3, 4]].my_each(&my_proc)).to be_a([1,2])
-# end
